@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>iCafe cv maker</title>
+        <meta name="description" content="family tree">
+        <link id="favicon" rel="icon" href="" type="image/x-icon">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <!-- import the webpage's stylesheet -->
+        <link rel="stylesheet" href="site/line-awesome _edited_font_embedded.css"> <!-- bootstratp css -->
+        <link rel="stylesheet" href="site/bootstrap.min.css"> <!-- bootstratp css -->
+        <link rel="stylesheet" href="site/w3.css"> <!-- w3c styles css framework-->
+        <link rel="stylesheet" href="site/index.css"> <!-- css -->
+
+    </head>
+    <body>
+        <!-- print button -->
+        <button onclick="produce_html(this)" style="position: absolute; top: 30px; left:30px;" class='btn btn-primary'>Print CV/Resume</button>
+
+        <!-- ---------- components select ---------- -->
+
+        <!-- icon elements -->
+        <div id='icon_select_container' class='w3-card w3-border w3-white' style='width: 650px; height:500px; position: fixed;top:15vh;left:9%;display: none;'>
+            <div style="width: 630px;display: flex-box;margin: auto;" class='w3-margin' id="icon_select_box">
+                <button class="btn btn-primary" onclick="document.getElementById(selected_div).innerHTML = '';show_hide('icon_select_container');">No icon</button>
+                <i class="la la-plus-circle" style="font-size: 32px;" onclick="icons_div_add(0)" class="w3-margin"></i>
+                <i class="la la-angle-right" style="font-size: 32px;" onclick="icons_div_add(1)" class="w3-margin"></i>
+                <i class="la la-arrow-right" style="font-size: 32px;" onclick="icons_div_add(2)" class="w3-margin"></i>
+                <i class="la la-chevron-right" style="font-size: 32px;" onclick="icons_div_add(3)" class="w3-margin"></i>
+                <i class="la la-play" style="font-size: 32px;" onclick="icons_div_add(4)" class="w3-margin"></i>
+                <i class="la la-stop" style="font-size: 32px;" onclick="icons_div_add(5)" class="w3-margin"></i>
+                <i class="la la-youtube" style="font-size: 32px;" onclick="icons_div_add(6)" class="w3-margin"></i>
+                <i class="la la-ambulance" style="font-size: 32px;" onclick="icons_div_add(7)" class="w3-margin"></i>
+                <i class="la la-bus" style="font-size: 32px;" onclick="icons_div_add(8)" class="w3-margin"></i>
+                <i class="la la-car" style="font-size: 32px;" onclick="icons_div_add(9)" class="w3-margin"></i>
+                <i class="la la-motorcycle" style="font-size: 32px;" onclick="icons_div_add(10)" class="w3-margin"></i>
+                <i class="la la-taxi" style="font-size: 32px;" onclick="icons_div_add(11)" class="w3-margin"></i>
+                <i class="la la-truck" style="font-size: 32px;" onclick="icons_div_add(12)" class="w3-margin"></i>
+                <i class="la la-university" style="font-size: 32px;" onclick= "icons_div_add(13)" class="w3-margin"></i>
+                <i class="la la-industry" style="font-size: 32px;" onclick="icons_div_add(14)" class="w3-margin"></i>
+                <i class="la la-phone" style="font-size: 32px;" onclick="icons_div_add(15)" class="w3-margin"></i>
+                <i class="la la-at" style="font-size: 32px;" onclick="icons_div_add(16)" class="w3-margin"></i>
+                <i class="la la-comment" style="font-size: 32px;" onclick="icons_div_add(17)" class="w3-margin"></i>
+                <i class="la la-language" style="font-size: 32px;" onclick="icons_div_add(18)" class="w3-margin"></i>
+                <i class="la la-paper-plane" style="font-size: 32px;" onclick="icons_div_add(19)" class="w3-margin"></i>
+                <i class="la la-desktop" style="font-size: 32px;" onclick="icons_div_add(20)" class="w3-margin"></i>
+                <i class="la la-laptop" style="font-size: 32px;" onclick="icons_div_add(21)" class="w3-margin"></i>
+                <i class="la la-mobile" style="font-size: 32px;" onclick="icons_div_add(22)" class="w3-margin"></i>
+                <i class="la la-wrench" style="font-size: 32px;" onclick="icons_div_add(23)" class="w3-margin"></i>
+                <i class="la la-calendar" style="font-size: 32px;" onclick="icons_div_add(24)" class="w3-margin"></i>
+                <i class="la la-hourglass-end" style="font-size: 32px;" onclick="icons_div_add(25)" class="w3-margin"></i>
+                <i class="la la-clone" style="font-size: 32px;" onclick="icons_div_add(26)" class="w3-margin"></i>
+                <i class="la la-graduation-cap" style="font-size: 32px;" onclick="icons_div_add(27)" class="w3-margin"></i>
+                <i class="la la-book" style="font-size: 32px;" onclick="icons_div_add(28)" class="w3-margin"></i>
+                <i class="la la-mars" style="font-size: 32px;" onclick="icons_div_add(29)" class="w3-margin"></i>
+                <i class="la la-venus" style="font-size: 32px;" onclick="icons_div_add(30)" class="w3-margin"></i>
+        
+            </div>
+        </div>
+
+        <!-- text element select -->
+        <div id='component_select_container' class='w3-card w3-border w3-white' style='width: 650px; height:auto; position: fixed;top:10vh;left:9%;display: none;'>
+            <div style="width: 630px;display: flex;margin: auto;" class=''>
+                <span style="width: 80%;height: auto;display: flex;"class='form-control w3-margin' ><b style="text-align: center;width: 100%;">My CV</b></span><button style="width: 15%;height:auto;" class='btn btn-primary w3-margin'id="component_1" onclick="show_hide('component_select_container');component_add(this.id)">Select</button>
+            </div>
+            <div style="width: 630px;display: flex;margin: auto;" class=''>
+                <span style="width: 80%;height: auto;display: flex;" class='form-control w3-margin' ><p style="text-align: center;width: 100%; margin: 0px;">My CV</p></span><button style="width: 15%;height:auto;" class='btn btn-primary w3-margin' id="component_2" onclick="show_hide('component_select_container');component_add(this.id)">Select</button>
+            </div>
+            <div style="width: 630px;display: flex;margin: auto;" class=''>
+                <span style="width: 80%;height: auto;display: flex;color:white"class='form-control w3-margin w3-black' ><b style="text-align: center;width: 100%;">My CV</b></span><button style="width: 15%;height:auto;" class='btn btn-primary w3-margin' id="component_3" onclick="show_hide('component_select_container');component_add(this.id)">Select</button>
+            </div>
+            <div style="width: 630px;display: flex; margin: auto;" class=''>
+                <span style="width: 80%;height: auto;display: flex;"class='form-control w3-margin' ><b >Name : myName</b></span><button style="width: 15%;height:auto;" class='btn btn-primary w3-margin' id="component_4" onclick="show_hide('component_select_container');component_add(this.id)">Select</button>
+            </div>
+            <div style="width: 630px;display: flex; margin: auto;" class=''>
+                <span style="width: 80%;height: auto;display: flex;"class='form-control w3-margin' >Name : myName</span><button style="width: 15%;height:auto;" class='btn btn-primary w3-margin' id="component_5" onclick="show_hide('component_select_container');component_add(this.id)">Select</button>
+            </div>
+            <div style="width: 630px;display: flex;margin: auto;" class=''>
+                <span style="width: 80%;height: auto;display: flex;" class='form-control w3-margin' ><p style="text-align:left;width: 100%; margin: 0px;">Click here</p></span><button style="width: 15%;height:auto;" class='btn btn-primary w3-margin' id="component_6" onclick="show_hide('component_select_container');component_add(this.id)">Select</button>
+            </div>
+            <div style="width: 630px;display: flex;margin: auto;" class=''>
+                <span style="width: 80%;height: auto;display: flex;" class='form-control w3-margin' ><p style="text-align:left;width: 100%; margin: 0px;font-weight: bold;">Click here</p></span><button style="width: 15%;height:auto;" class='btn btn-primary w3-margin' id="component_7" onclick="show_hide('component_select_container');component_add(this.id)">Select</button>
+            </div>
+            <div style="width: 630px;display: flex; margin: auto;" class=''>
+                <span style="width: 80%;height: 20px;display: flex; border-bottom: 2px solid #000;" class='w3-margin' ></span><button style="width: 15%;height:auto;" class='btn btn-primary w3-margin' id="component_8" onclick="show_hide('component_select_container');component_add(this.id)">Select</button>
+            </div>
+            <div style="width: 630px;display: flex; margin: auto;" class=''>
+                <span style="width: 80%;height: auto;display: flex;"class='btn btn-default w3-margin' >Empty space</span><button style="width: 15%;height:auto;" class='btn btn-primary w3-margin' id="component_9" onclick="show_hide('component_select_container');component_add(this.id)">Select</button>
+            </div>
+
+
+        </div>
+
+
+        <!-- ------- text edit box -------- -->
+        <div id='text_edit_container' class='w3-card w3-border w3-white' style='width: 650px; height:auto; position: fixed;top:13vh;left:9%;display: none;'>
+
+            <!-- close button -->
+            <button onclick="show_hide('text_edit_container')" class="btn btn-success w3-margin" style="width: 10%;height: auto; float:right"><i class='la la-close' style="width: auto;text-align: center;"></i></button>
+
+            <div style="width: 630px;display: flex-box;margin: auto;" class='w3-margin' id="text_edit_box">
+
+                <textarea id='text_edit_box_textarea' onclick=" (this.value.trim()=='Click here')?this.value='':'' " style="width: 97%;min-height: 50px;" ></textarea>
+
+                <p>Text size</p>
+                <input type="number" id="text_edit_box_text_size" class='form-control w3-margin' style="width: 93%;">
+
+                <br />
+                <p> Text color</p>
+                <input type="color" id="text_edit_box_color_pick" class="form-control w3-margin" style="width: 93%;height: 30px;">
+
+                <br />
+                <p> Text type</p>
+                <select class="form-control w3-margin" id="text_edit_box_font_type" style="width: 93%;">
+                    <option default value=''>Choose</option>
+                </select>
+
+                <p> Text back ground color</p>
+                <input type="color" id="text_edit_box_text_background_color" class="form-control w3-margin" style="width: 93%; height: 30px;">
+
+            </div>
+
+            <!-- delete / save buttons -->
+            <button onclick="$('#' + selected_div.replace(/[a,b,c]/,'') + 'container').remove();show_hide('text_edit_container')" class="btn btn-danger w3-margin" style="width: 42.5%;">Delete</button>
+            <button onclick="show_hide('text_edit_container');component_text_edit_save()" class="btn btn-primary w3-margin" style="width: 46%;">Save</button>
+
+        </div>
+
+        <!-- ------------- line component edit ------------ -->
+        <div id='line_component_edit_container' class='w3-card w3-border w3-white' style='width: 650px; height:auto; position: fixed;top:13vh;left:9%;display: none;'>
+
+            <!-- close button -->
+            <button onclick="show_hide('line_component_edit_container')" class="btn btn-success w3-margin" style="width: 10%;height: auto; float:right"><i class='la la-close' style="width: auto;text-align: center;"></i></button>
+
+            <div style="width: 630px;display: flex-box;margin: auto;" class='w3-margin' id="text_edit_box">
+                <p>Change line color</p>
+                <input type="color" id="line_component_edit_container_line_color" class="form-control w3-margin" style="width: 93%; height: 30px;">
+
+                <br />
+                <p>Select line style</p>
+                <select id="line_component_edit_container_line_style" class="form-control w3-margin" style="width: 93%; height: auto;" onchange="document.getElementById('line_component_edit_container_line_style_example').style.borderBottom = '2px ' + this.value ">
+                    <option  default value='solid' >Solid</option>
+                    <option value='dotted' >Dotted</option>
+                    <option  value='dashed' '>Dashed</option>
+                    <option  value='double' >Double</option>
+                    <option value='groove' >Groove</option>
+                    <option  value='none' >None</option>
+                </select>
+                
+                <div id="line_component_edit_container_line_style_example" class="w3-margin " style="width: 93%; height: 10px"></div>
+
+                <!-- delete / save buttons -->
+                <button onclick="$('#' + selected_div.replace(/[a,b,c]/,'') + 'container').remove();show_hide('line_component_edit_container')" class="btn btn-danger w3-margin" style="width: 42.5%;">Delete</button>
+                <button onclick="show_hide('line_component_edit_container')" class="btn btn-primary w3-margin" style="width: 46%;">Save</button>
+
+            </div>
+
+        </div>
+
+        <!-- ------------- space component edit ------------ -->
+        <div id='space_component_edit_container' class='w3-card w3-border w3-white' style='width: 650px; height:auto; position: fixed;top:15vh;left:9%;display: none;'>
+
+            <!-- close button -->
+            <button onclick="show_hide('space_component_edit_container')" class="btn btn-success w3-margin" style="width: 10%;height: auto; float:right"><i class='la la-close' style="width: auto;text-align: center;"></i></button>
+
+            <!-- delete / save buttons -->
+            <div style="width: 630px;display: flex-box;margin: auto;" class='w3-margin' id="text_edit_box">
+                
+                <button onclick="$('#' + selected_div.replace(/[a,b,c]/,'') + 'container').remove();show_hide('space_component_edit_container')" class="btn btn-danger w3-margin" style="width: 42.5%;">Delete</button>
+            </div>
+        </div>
+
+        
+
+        <!-- ---------------  CV  ------------------ -->
+        <div id='Cv_1_content_container' style="width: 100%;height: auto; margin-top:50px">
+        
+        
+          
+            
+        
+        </div>
+        <!-- --------------- add cv compont  --------------------- -->
+        <button class='w3-block btn' onclick="document.getElementById('component_select_container').style.display='block'"><i class='la la-plus'></i></button>
+
+       
+
+        
+         
+        
+
+
+        
+        
+        <!-- printed page breaks -->
+        <!-- 
+        This is the text for page #1.
+
+        <p style="page-break-before: always">
+
+        Page #2...
+
+        <p style="page-break-before: always">
+
+        Page #3...
+
+        -->
+
+
+
+
+        <!--- scripts --->
+        <script src="site/jquery-3.4.1.min.js" defer></script><!-- jquery-->
+        <script src="site/index.js" defer></script><!-- javascript -->
+    </body>   
+</html>

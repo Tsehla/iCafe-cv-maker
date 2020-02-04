@@ -1,0 +1,22 @@
+{
+  "name": "icafe-cv-maker",
+  "version": "1.0.0",
+  "description": "cv maker nodejs app",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "cv",
+    "maker",
+    "resume",
+    "maker"
+  ],
+  "author": "@tsehla.github",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "puppeteer": "^2.1.0"
+  }
+}
