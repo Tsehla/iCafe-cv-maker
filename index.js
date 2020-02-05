@@ -11,7 +11,7 @@ var filesytem_module = require('fs');
 //var PouchDB = require('pouchdb');//pouch db, module
 //require('dotenv').config();//dot env module
 
-var server_listen_port = 3001;//port express server is running on//glitch.me require port to be 3000
+var server_listen_port = 3000;//port express server is running on//glitch.me require port to be 3000
 
 
 //__________________________________ routes _____________________________
