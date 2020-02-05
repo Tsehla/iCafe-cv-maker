@@ -19,8 +19,9 @@ var server_listen_port = 3001;//port express server is running on//glitch.me req
 //++++++++++ static elements ++++++++++
 app.use(express_module.static('assets'));
 
+
 // Parse URL-encoded bodies (as sent by HTML forms)
-app.use(express_module.urlencoded());
+app.use(express_module.urlencoded({limit: '50mb'}));
 
 
 app.use((req, res, next)=>{// get url of requested resources
@@ -39,6 +40,31 @@ app.get('/', function(req, res){
 
 });
 
+// +++++++++ SAVE UPLOADED FONT ++++++++
+app.post('/font_to_base_64_save', function(req,res){ //get file and convert it to base 64 then write result
+
+    //console.log(req.body);
+
+        //save font formate, and clean name of file extension
+        var font_data_to_save = `
+
+        @font-face {
+            font-family:"${req.body.font_name.trim().replace(/(.tt|.woff|.woff2|.otf|.svg|.eot)/gi,'')}";
+            src : url(${req.body.font});
+        }
+        `;
+
+       // console.log(req.body.font_name.trim().replace(/(.tt|.woff|.woff2|.otf|.svg|.eot)/gi,''));
+       //console.log(font_data_to_save )
+   
+        filesytem_module.appendFile("./assets/site/font_base_64_converted.css",font_data_to_save , (err) => {
+            if (err) res.send(err);
+
+           // res.send("Successfully Written to File.");
+            res.jsonp(true);
+
+        });
+});
 
 //++++++++++ Convert to pdf ++++++++
 
@@ -77,6 +103,7 @@ function html_to_pdf_print(req, res){
     var bootstrap_min_css = '';//bootstrap css
     var w3_css = ''; //w3c css
     var site_css = ''; //custom site css
+    var embedded_fonts = '';//user added fonts
 
     var line_awesome_css = '';//line awesome//external dependent fonts have been base64 converted & embedded
   
@@ -114,12 +141,23 @@ function html_to_pdf_print(req, res){
     });
 
     //line awesome fonts & css
-    filesytem_module.readFile('./assets/site/line-awesome _edited_font_embedded.css', 'utf8',function read(err, data) {
+    filesytem_module.readFile('./assets/site/line-awesome/css/line-awesome.css', 'utf8',function read(err, data) {
 
         if (err) {
             throw err;
         }
         line_awesome_css = data;
+
+        //console.log(line_awesome_css);  
+    });
+
+       //embedded fonts (base64) converted
+       filesytem_module.readFile('./assets/site/font_base_64_converted.css', 'utf8',function read(err, data) {
+
+        if (err) {
+            throw err;
+        }
+        embedded_fonts = data;
 
         //console.log(line_awesome_css);  
     });
@@ -147,7 +185,9 @@ function html_to_pdf_print(req, res){
 
             <!-- line awesome css & fonts -->
     
-            
+            <style>
+                ${embedded_fonts}
+            </style>
             <style>
                 ${line_awesome_css}
             </style>

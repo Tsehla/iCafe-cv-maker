@@ -1,3 +1,5 @@
+
+
 body {
     /* a4 page size
 
@@ -9,12 +11,23 @@ body {
             2480 pixels x 3508 pixels (print resolution)
             595 pixels x 842 pixels (screen resolution)
         https://www.graphic-design-employment.com/
-    */
+    *
 
     height: 1275px; 
     width: 935px;
     /* border: 1px solid blue; */
-  /*  background-color: blueviolet; */
+  /* background-color: blueviolet; */
   /* color:#ff0000;*/
+
+ margin: 50px 0px 0px 0px;
     
+}
+
+#body_or_print_area {
+    margin: auto;
+    min-height: 1210px; 
+    height: auto;
+    width: 935px;
+    box-shadow: 3px 3px 5px 6px #ccc;
+
 }

@@ -45,7 +45,10 @@ function div_append(div_id = '', data = ''){
 
 function produce_html (){
 
-   
+    document.getElementsByTagName('body')[0].style.marginTop = '0px';//set body magin to zero, //it affects how item start prin position on page
+    show_hide('cv_resume_1_component_add_button');//temporary hide component add button/prevent it from being printed
+    show_hide('cv_resume_1_print_button');//temporary hide print button/to prevent it being prented
+
     var current_body_source = $('body')[0].outerHTML;//get html source code of current page state
 
 
@@ -61,16 +64,25 @@ function produce_html (){
             if(data.sucess){//if success
                 
                 //return $('#x').append(data.download);
+                show_hide('cv_resume_1_component_add_button', 'show');//re show component add button
+                show_hide('cv_resume_1_print_button', 'show');//re show print button
+                document.getElementsByTagName('body')[0].style.marginTop = '50px';//make margin 50px from top/ good appearance and easy working with
                 return window.open(http_https + current_domain + '/'+ data.download, '_blank');//open pdf in new tab
             }
 
             //if error
+            show_hide('cv_resume_1_component_add_button', 'show');//re show component add button
+            show_hide('cv_resume_1_print_button', 'show');//re show print button
+            document.getElementsByTagName('body')[0].style.marginTop = '50px';//make margin 50px from top/ good appearance and easy working with
             return alert('There was an issue producing the CV/Resume, please try again later.'); 
            
 
         }
 
         //console.log('err', data);
+        show_hide('cv_resume_1_component_add_button', 'show');//re show component add button
+        show_hide('cv_resume_1_print_button', 'show');//re show print button
+        document.getElementsByTagName('body')[0].style.marginTop = '50px';//make margin 50px from top/ good appearance and easy working with
         alert('There was an issue connecting to the server computer, please try again later.'); 
 
     });
@@ -277,6 +289,30 @@ function icons_div_add(icon_number){
 
 }
 
+//+++++++ find fonts uploded on style sheet  +++++++++
+
+var total_style_sheets = document.styleSheets.length;//total number of style sheets
+var all_fonts_on_style_sheet = ['Verdana, sans-serif','Arial, Helvetica, sans-serif'];//store retrieved font names //added websafe default font
+
+for(var i = 0; i <= total_style_sheets - 1; i++){//loop through per stylesheets objects
+
+    if(document.styleSheets[i].href.search('font_base_64_converted.css') == -1){ continue };//skip loop if stylesheet does not mmatch
+
+    for(var b = 0; b <= document.styleSheets[i].cssRules.length - 1; b++){//loop through stylesheet dom objects, to locate style.fontFamily
+
+        if(document.styleSheets[i].cssRules[b].style){   
+            if(document.styleSheets[i].cssRules[b].style.fontFamily){//check if font family is not undefined
+                //console.log(document.styleSheets[i].cssRules[b].style.fontFamily);
+                all_fonts_on_style_sheet.push(document.styleSheets[i].cssRules[b].style.fontFamily)
+            }
+        } 
+    };
+}
+
+
+//console.log(all_fonts_on_style_sheet);
+
+
 //+++++++++++++ component edit ++++++++++++++++++
 
 // text edit
@@ -312,8 +348,20 @@ function component_text_edit(callee_fn_id){
 
 
     //html component font type
+
+    //add system uploaded fonts
+
+    document.getElementById('text_edit_box_font_type').innerHTML = '';//clean html of prev contents
+
+    var system_uploaded_fonts = '';
+    all_fonts_on_style_sheet.forEach(function(font){
+
+        system_uploaded_fonts = system_uploaded_fonts + `<option value='${font}'>${font}</option>`;
+
+    });
+
     var html_component_font_type = (html_element_data.style.fontFamily.length == 0?window.getComputedStyle(html_element_data).fontFamily : html_element_data.style.fontFamily);
-    $('#text_edit_box_font_type').append('<option  selected value=' + html_component_font_type + '>'+ html_component_font_type +'</option>');//if no font specified for div, get system div set font
+    $('#text_edit_box_font_type').append('<option  selected value=' + html_component_font_type + '>'+ html_component_font_type +'</option>' + system_uploaded_fonts);//if no font specified for div, get system div set font
    
     
     //html component background color
@@ -433,5 +481,102 @@ function component_space_edit(callee_fn_id){
     selected_div = callee_fn_id;//save id of dive invoked function
 
    // console.log(selected_div);
+
+}
+
+//+++++++++++++ font upload +++++++++++++++++
+var newly_added_font_name = ''; //store font name of font to be uploaded
+
+function font_upload_fn(){
+
+    var font_file_to_upload = document.getElementById('font_upload_input');
+
+    if(font_file_to_upload.value.search('.ttf') == -1 & font_file_to_upload.value.search('.woff') == -1 & font_file_to_upload.value.search('.woff2') == -1 & font_file_to_upload.value.search('.otf') == -1 & font_file_to_upload.value.search('.svg') == -1 & font_file_to_upload.value.search('.eot') == -1 ){
+
+        alert('Please upload a font file. \ni.e Search google for "font download"')
+        return
+    }
+
+    //console.log(font_file_to_upload.value,font_file_to_upload.type, font_file_to_upload.files[0].name);
+
+
+    //convert font to base64
+    var font_to_base_64 = '';//font converted to base 64
+
+    var file = font_file_to_upload.files[0];//upload file, file
+
+
+    (function() {
+
+        var reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        reader.onload = function () {
+
+          //console.log(reader.result);
+          font_to_base_64 = reader.result;
+          upload_font_to_server();
+
+        };
+
+        reader.onerror = function (error) {
+
+            return alert('There was an issue comverting your font to required format, please try again later.')
+
+        };
+     })();
+     
+    
+
+
+    //post font to server
+    function upload_font_to_server(){
+
+        newly_added_font_name = font_file_to_upload.files[0].name.trim().replace(/(.tt|.woff|.woff2|.otf|.svg|.eot)/gi,'')//filter & save font name
+
+        var url = http_https + current_domain + '/font_to_base_64_save';
+
+        $.post(url, { font :font_to_base_64, font_name:  font_file_to_upload.files[0].name},function(data, status){
+
+            if(status == 'success'){
+
+                //console.log('reply'+ data);
+
+                if(data){//if success
+
+                    //reload all style sheets to include newly added font
+
+                    /*    breaks font search function
+
+                    var links = document.getElementsByTagName("link");
+
+                    for (var cl in links){
+
+                        var link = links[cl];
+
+                        if (link.rel === "stylesheet"){
+                            link.href += "";
+                        }
+                            
+                    };
+                    */
+
+                    //add newly added font temporary to font array//for immidiate use
+                    //all_fonts_on_style_sheet.push(newly_added_font_name);
+
+                    return alert('Font loaded, Please reload page and open "Text type" option when editing text component.')
+                }
+
+                //if error
+                return alert('There was an issue processing your font, please try again later.'); 
+            
+            }
+
+            //console.log('err', data);
+            alert('There was an issue connecting to the server computer, please try again later.'); 
+
+        });
+    }
 
 }
