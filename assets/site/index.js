@@ -356,12 +356,12 @@ function component_text_edit(callee_fn_id){
     var system_uploaded_fonts = '';
     all_fonts_on_style_sheet.forEach(function(font){
 
-        system_uploaded_fonts = system_uploaded_fonts + `<option value='${font}'>${font}</option>`;
+        system_uploaded_fonts = system_uploaded_fonts + `<option value='${font}' style='font-family:${font}'>${font}</option>`;
 
     });
 
     var html_component_font_type = (html_element_data.style.fontFamily.length == 0?window.getComputedStyle(html_element_data).fontFamily : html_element_data.style.fontFamily);
-    $('#text_edit_box_font_type').append('<option  selected value=' + html_component_font_type + '>'+ html_component_font_type +'</option>' + system_uploaded_fonts);//if no font specified for div, get system div set font
+    $('#text_edit_box_font_type').append('<option  selected value=' + html_component_font_type + ' style="font-family:' + html_component_font_type + '">'+ html_component_font_type +'</option>' + system_uploaded_fonts);//if no font specified for div, get system div set font
    
     
     //html component background color

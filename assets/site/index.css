@@ -18,10 +18,52 @@ body {
     /* border: 1px solid blue; */
   /* background-color: blueviolet; */
   /* color:#ff0000;*/
-
+ 
  margin: 50px 0px 0px 0px;
     
 }
+
+body::-webkit-scrollbar {
+    width: 1em;
+  }
+   
+  body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+   
+  body::-webkit-scrollbar-thumb {
+    background-color: rgb(231, 6, 6);
+    outline: 1px solid slategrey;
+  }
+
+
+  #text_edit_container::-webkit-scrollbar {
+    width: 1em;
+  }
+   
+  #text_edit_container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+   
+  #text_edit_container::-webkit-scrollbar-thumb {
+    background-color: rgb(231, 6, 6);
+    outline: 1px solid slategrey;
+  }
+  
+  #component_select_container::-webkit-scrollbar {
+    width: 1em;
+  }
+   
+  #component_select_container::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+   
+  #component_select_container::-webkit-scrollbar-thumb {
+    background-color: rgb(231, 6, 6);
+    outline: 1px solid slategrey;
+  }
+
+
 
 #body_or_print_area {
     margin: auto;
