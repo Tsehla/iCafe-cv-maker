@@ -45,10 +45,6 @@ function div_append(div_id = '', data = ''){
 
 function produce_html (){
 
-    document.getElementsByTagName('body')[0].style.marginTop = '0px';//set body magin to zero, //it affects how item start prin position on page
-    show_hide('cv_resume_1_component_add_button');//temporary hide component add button/prevent it from being printed
-    show_hide('cv_resume_1_print_button');//temporary hide print button/to prevent it being prented
-
     var current_body_source = $('body')[0].outerHTML;//get html source code of current page state
 
 
@@ -64,25 +60,18 @@ function produce_html (){
             if(data.sucess){//if success
                 
                 //return $('#x').append(data.download);
-                show_hide('cv_resume_1_component_add_button', 'show');//re show component add button
-                show_hide('cv_resume_1_print_button', 'show');//re show print button
-                document.getElementsByTagName('body')[0].style.marginTop = '50px';//make margin 50px from top/ good appearance and easy working with
                 return window.open(http_https + current_domain + '/'+ data.download, '_blank');//open pdf in new tab
             }
 
             //if error
-            show_hide('cv_resume_1_component_add_button', 'show');//re show component add button
-            show_hide('cv_resume_1_print_button', 'show');//re show print button
-            document.getElementsByTagName('body')[0].style.marginTop = '50px';//make margin 50px from top/ good appearance and easy working with
+
             return alert('There was an issue producing the CV/Resume, please try again later.'); 
            
 
         }
 
         //console.log('err', data);
-        show_hide('cv_resume_1_component_add_button', 'show');//re show component add button
-        show_hide('cv_resume_1_print_button', 'show');//re show print button
-        document.getElementsByTagName('body')[0].style.marginTop = '50px';//make margin 50px from top/ good appearance and easy working with
+
         alert('There was an issue connecting to the server computer, please try again later.'); 
 
     });
@@ -329,47 +318,87 @@ function component_text_edit(callee_fn_id){
     document.getElementById('text_edit_box_text_size').value = (html_element_data.style.fontSize.length == 0?parseInt(window.getComputedStyle(html_element_data).fontSize) : parseInt(html_element_data.style.fontSize));//if no font size specified for text, get system text set fontsize
    
 
-        //html component font color
-        //convert font returned by system from rgb to hex
-        var font_color_rgb_to_hex = '#'; //store font as hex
+    //html component font color
+    //convert font returned by system from rgb to hex
+    var font_color_rgb_to_hex = '#'; //store font as hex
 
-        //test if font is provided by system or is set by user, convert rgb result to array, convert array item to base 16 string, then combine as hex code
-        (html_element_data.style.color.length == 0?window.getComputedStyle(html_element_data).color : html_element_data.style.color).replace(/[r,g,b,(,)]/g, '').trim().split(' ').forEach(element => {
-                var hex = Number(element).toString(16);
+    //test if font is provided by system or is set by user, convert rgb result to array, convert array item to base 16 string, then combine as hex code
+    (html_element_data.style.color.length == 0?window.getComputedStyle(html_element_data).color : html_element_data.style.color).replace(/[r,g,b,(,)]/g, '').trim().split(' ').forEach((element, index) => {
+
+        if(index != 3){//process only three items, ignore the four applicable to rgba() color;
+            var hex = Number(element).toString(16);
+            if (hex.length < 2) {
+                hex = "0" + hex;
+            }
+
+            font_color_rgb_to_hex  = font_color_rgb_to_hex + hex;
+        }
+    })
+        
+    //console.log(font_color_rgb_to_hex)
+    document.getElementById('text_edit_box_color_pick').value = font_color_rgb_to_hex ;//show font as color on div
+    
+    
+    //html font weigh
+    var font_weight = (html_element_data.style.fontWeight.length == 0?parseInt(window.getComputedStyle(html_element_data).fontWeight) : parseInt(html_element_data.style.fontWeight));//if no font weight specified for text, get system text set fontweight
+
+    document.getElementById('text_edit_box_font_weight').value = font_weight;//set font weight as seletted on edit box text weight option
+
+
+    //html page background color
+    var page_background_color = document.getElementById('body_or_print_area');
+
+    //convert color returned by system from rgb to hex
+    var background_color_rgb_to_hex = '#'; //store color as hex
+
+    //test if background color is provided by system or is set by user, convert rgb result to array, convert array item to base 16 string, then combine as hex code
+    (page_background_color.style.backgroundColor.length == 0?window.getComputedStyle(page_background_color).backgroundColor : page_background_color.style.backgroundColor).replace(/[r,g,b,(,)]/g, '').trim().split(' ').forEach((element, index) => {
+
+        if(index != 3){//process only three items, ignore the four applicable to rgba() color;
+
+            var hex = Number(element).toString(16);
                 if (hex.length < 2) {
                     hex = "0" + hex;
                 }
 
-                font_color_rgb_to_hex  = font_color_rgb_to_hex + hex;
-        })
-        
-        //console.log(font_color_rgb_to_hex)
-        document.getElementById('text_edit_box_color_pick').value = font_color_rgb_to_hex ;//show font as color on div
+            background_color_rgb_to_hex  = background_color_rgb_to_hex + hex;
+        }
+    })
+
+
+    //console.log(background_color_rgb_to_hex);
+    document.getElementById('text_edit_page_color_pick').value = background_color_rgb_to_hex;//set backgroung color to edit box page background option
 
 
     //html component font type
-
     //add system uploaded fonts
 
     document.getElementById('text_edit_box_font_type').innerHTML = '';//clean html of prev contents
 
     var system_uploaded_fonts = '';
-    all_fonts_on_style_sheet.forEach(function(font){
+    all_fonts_on_style_sheet.forEach(function(font){//all stored fonts
 
-        system_uploaded_fonts = system_uploaded_fonts + `<option value='${font}' style='font-family:${font}'>${font}</option>`;
+        system_uploaded_fonts = system_uploaded_fonts + `<option value='${font}' style='font-family:${font}'>${font.replace(/[\"']/gi,'')}</option>`;
 
     });
 
-    var html_component_font_type = (html_element_data.style.fontFamily.length == 0?window.getComputedStyle(html_element_data).fontFamily : html_element_data.style.fontFamily);
-    $('#text_edit_box_font_type').append('<option  selected value=' + html_component_font_type + ' style="font-family:' + html_component_font_type + '">'+ html_component_font_type +'</option>' + system_uploaded_fonts);//if no font specified for div, get system div set font
+    var html_component_font_type = (html_element_data.style.fontFamily.length == 0?window.getComputedStyle(html_element_data).fontFamily : html_element_data.style.fontFamily); //current applied font
+    $('#text_edit_box_font_type').append('<option  selected disabled hidden value=' + html_component_font_type + ' style="font-family:' + html_component_font_type + '">'+ html_component_font_type.replace(/[\"']/gi,'') +'</option>' + system_uploaded_fonts);//if no font specified for div, get system div set font
    
     
+    //html component font style
+    document.getElementById('text_edit_box_font_style').value = (html_element_data.style.fontStyle.length == 0?window.getComputedStyle(html_element_data).fontStyle : html_element_data.style.fontStyle);//if no fontstyle specified for text, get system text set fontstyle
+
+    //html component text decoration
+    //console.log((html_element_data.style.textDecoration.length == 0?window.getComputedStyle(html_element_data).textDecoration : html_element_data.style.textDecoration))
+
+
     //html component background color
      //convert font returned by system from rgb to hex
      var background_color_rgb_to_hex = '#'; //store font as hex
      
      var container_div_background_color = document.getElementById(callee_fn_id.replace(/[a,b,c]/g, 'container'));
-
+    
 
      //test if font is provided by system or is set by user, convert rgb result to array, convert array item to base 16 string, then combine as hex code
     (container_div_background_color.style.backgroundColor.length == 0?window.getComputedStyle(container_div_background_color).backgroundColor : container_div_background_color.style.backgroundColor).replace(/[r,g,b,a,(,)]/g, '').trim().split(' ').forEach((element, index) => {
@@ -424,7 +453,11 @@ function component_text_edit_save(){
     html_element_data.style.fontSize = document.getElementById('text_edit_box_text_size').value + 'px';//set font size
     html_element_data.style.color = document.getElementById('text_edit_box_color_pick').value;//set font color
     html_element_data.style.fontFamily = document.getElementById('text_edit_box_font_type').value;//set font type
+    html_element_data.style.fontWeight = document.getElementById('text_edit_box_font_weight').value;//set font weight
+    html_element_data.style.fontStyle = document.getElementById('text_edit_box_font_style').value;//set text font style
+    html_element_data.style.textDecoration = document.getElementById('text_edit_box_font_decoration').value;//set text decoration
 
+    //+++ element div background color +++
 
     //covert rgb() to hex; check if background color was cahnge or not//if changed apply new color
     var background_color_rgb_to_hex = '#'; //store font as hex
@@ -447,11 +480,46 @@ function component_text_edit_save(){
        }
    })
     
-
+   //system return unset background as color black;
+   //prevent setting background as color black if user has not changed background of div 
     if(background_color_rgb_to_hex != document.getElementById('text_edit_box_text_background_color').value ){
 
         document.getElementById(selected_div.replace(/[a,b,c]/g, 'container')).style.backgroundColor = document.getElementById('text_edit_box_text_background_color').value;//set backgound color
     }
+
+
+    //+++ page background /test & apply ++
+
+    
+    //covert rgb() to hex; check if background color was cahnge or not//if changed apply new color
+    var page_background_color_rgb_to_hex = '#'; //store font as hex
+     
+    var page_div_background_color = document.getElementById('body_or_print_area');//get div to apply background on 
+
+    //test if font is provided by system or is set by user, convert rgb result to array, convert array item to base 16 string, then combine as hex code
+   (page_div_background_color.style.backgroundColor.length == 0?window.getComputedStyle(page_div_background_color).backgroundColor : page_div_background_color.style.backgroundColor).replace(/[r,g,b,a,(,)]/g, '').trim().split(' ').forEach((element, index) => {
+
+      // console.log( element )
+       if(index != 3){//process only three items, ignore the four applicable to rgba() color;
+
+           var hex = Number(element).toString(16);
+           if (hex.length < 2) {
+               hex = "0" + hex;
+           }
+   
+           page_background_color_rgb_to_hex = page_background_color_rgb_to_hex + hex;
+
+       }
+   })
+    
+   //system return unset background as color black;
+   //prevent setting background as color black if user has not changed background of div 
+    if(page_background_color_rgb_to_hex != document.getElementById('text_edit_page_color_pick').value ){
+
+        document.getElementById('body_or_print_area').style.backgroundColor = document.getElementById('text_edit_page_color_pick').value;//set page body baground color
+    }
+
+    
 }
 
 
@@ -483,6 +551,28 @@ function component_space_edit(callee_fn_id){
    // console.log(selected_div);
 
 }
+
+
+//+++ element delete +++
+function element_edit_delete(calling_element){
+    
+    if( calling_element == 'text_element'){//text element/componet delete; 
+
+        var confirm_text_element_delete = confirm('You are about to delete : \n'+ document.getElementById(selected_div).innerHTML);//give delete alert
+
+        if(confirm_text_element_delete){//delete when okay pressed
+
+            $('#' + selected_div.replace(/[a,b,c]/,'') + 'container').remove();show_hide('text_edit_container');
+        }
+
+        return;//dont delete item when cancelled pressed
+    }
+
+
+
+}
+
+
 
 //+++++++++++++ font upload +++++++++++++++++
 var newly_added_font_name = ''; //store font name of font to be uploaded
@@ -578,5 +668,12 @@ function font_upload_fn(){
 
         });
     }
+
+}
+
+//track page componants adding and automatically increase page width/add new page if first page width has been usedup
+function new_page_or_width_increase(){
+
+
 
 }

@@ -165,9 +165,7 @@ function html_to_pdf_print(req, res){
 
     (async()=>{
 
-       // var browser = await puppeteer.launch();//not work on glitch
-        var browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});//required to work on glitch
-
+        var browser = await puppeteer.launch();
 
         var page = await browser.newPage();
 
@@ -206,6 +204,13 @@ function html_to_pdf_print(req, res){
         </head>
         <body>
           ${html_body_contents}
+
+          <script>
+            document.getElementsByTagName('body')[0].style.marginTop = '0px';//set body magin to zero, //it affects how item start print position on page
+            document.getElementById('cv_resume_1_component_add_button').style.display = 'none';//temporary hide component add button/prevent it from being printed
+            document.getElementById('cv_resume_1_print_button').style.display = 'none';//temporary hide print button/to prevent it being printed
+          </script>
+
         </body>
       </html>
     `)

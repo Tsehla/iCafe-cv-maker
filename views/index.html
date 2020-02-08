@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>iCafe cv maker</title>
-        <meta name="description" content="family tree">
+        <meta name="description" content="Cv/Resume maker">
         <link id="favicon" rel="icon" href="" type="image/x-icon">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -143,7 +143,7 @@
 
                     <div style="width: auto;height: auto;margin: 0px; display:flex;">
 
-                        <span style="margin: 0px; width:66%; height: auto;display: flexbox;">
+                        <span style="margin: 0px; width:33%; height: auto;display: flexbox;">
 
                             <p > Text type</p>
                             <a href="#" onclick='show_hide("line_component_edit_container"); show_hide("space_component_edit_container"); show_hide("text_edit_container"); show_hide("font_upload_container", "show")' style="width: auto;height:auto;margin: 0px;font-size: 12px;color: blue;">Upload your font : click here</a>
@@ -152,10 +152,24 @@
                             </select>
 
                         </span>
+
+                        <span style="margin: 0px; width:33%; height: auto;display: flexbox;">
+                            <div style="height: 36px;width: 100%;margin: 0px;"></div>
+                            <p style="padding-left: 30px;"> Text decoration</p>
+                            <select class="form-control w3-margin" id="text_edit_box_font_decoration" style="width: 93%;">
+                                <option default value='none' style="text-decoration-line: none;">none</option>
+                                <option default value='overline' style="text-decoration-line: overline;">overline</option>
+                                <option default value='underline' style="text-decoration-line: underline;">underline</option>
+                                <option default value='line-through' style="text-decoration-line: line-through;">line through</option>
+                            </select>
+                        
+                        </span>
+
+
                         <span style="margin: 0px; width:33%; height: auto;display: flexbox;">
                             <div style="height: 36px;width: 100%;margin: 0px;"></div>
                             <p style="padding-left: 30px;"> Text style</p>
-                            <select class="form-control w3-margin" id="text_edit_box_font_style " style="width: 93%;">
+                            <select class="form-control w3-margin" id="text_edit_box_font_style" style="width: 93%;">
                                 <option default value='italic' style="font-style: italic;">italic</option>
                                 <option default value='oblique' style="font-style: oblique;">oblique</option>
                                 <option default value='normal' style="font-style: normal;">normal</option>
@@ -175,7 +189,7 @@
                 </div>
 
                 <!-- delete / save buttons -->
-                <button onclick="$('#' + selected_div.replace(/[a,b,c]/,'') + 'container').remove();show_hide('text_edit_container')" class="btn btn-danger w3-margin" style="width: 42.5%;">Delete</button>
+                <button onclick="element_edit_delete('text_element')" class="btn btn-danger w3-margin" style="width: 42.5%;">Delete</button>
                 <button onclick="show_hide('text_edit_container');component_text_edit_save()" class="btn btn-primary w3-margin" style="width: 46%;">Save</button>
 
             </div>
