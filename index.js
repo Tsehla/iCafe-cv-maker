@@ -165,7 +165,8 @@ function html_to_pdf_print(req, res){
 
     (async()=>{
 
-        var browser = await puppeteer.launch();
+        // var browser = await puppeteer.launch();//not work on glitch
+        var browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']});//required to work on glitch
 
         var page = await browser.newPage();
 
