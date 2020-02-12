@@ -917,7 +917,7 @@ function page_templates(template_number){
 
     if(template_number == 1){//empty/blank page
 
-        screen_shot_store = ``;
+        screen_shot_store = `<div id="Cv_1_content_container" style="width: 100%;height: auto; margin-top:0px"></div`;//add/replace with empty container div
         return $('#Cv_1_content_container')[0].outerHTML = screen_shot_store;
     }
 
@@ -1646,15 +1646,7 @@ function page_templates(template_number){
                 <span style="width:50%;height:auto;margin:0px" class="" id="126_c" onclick="component_text_edit(this.id)"> Click here</span>
             </div>
         </div>
-        
-        
-        
-        
-        
-        
-        
-        
-        
+      
         `;
         
 
