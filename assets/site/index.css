@@ -22,6 +22,11 @@ body {
  margin: 50px 0px 0px 0px;
     
 }
+/*{
+  box-sizing:border-box;
+  border: 1px solid black;
+}
+*/
 
 body::-webkit-scrollbar {
     width: 1em;
@@ -69,7 +74,8 @@ body::-webkit-scrollbar {
     margin: auto;
     min-height: 1210px; 
     height: auto;
-    width: 935px;
+    width:90vw;
+    max-width: 935px;
     box-shadow: 3px 3px 5px 6px #ccc;
 
 }

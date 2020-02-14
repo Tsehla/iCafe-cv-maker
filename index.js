@@ -207,6 +207,7 @@ function html_to_pdf_print(req, res){
           ${html_body_contents}
 
           <script>
+            document.getElementById('body_or_print_area').style.width = '100vw';// set print area div to take whole window width
             document.getElementsByTagName('body')[0].style.marginTop = '0px';//set body magin to zero, //it affects how item start print position on page
             document.getElementById('cv_resume_1_component_add_button').style.display = 'none';//temporary hide component add button/prevent it from being printed
             document.getElementById('cv_resume_1_print_button').style.display = 'none';//temporary hide print button/to prevent it being printed
