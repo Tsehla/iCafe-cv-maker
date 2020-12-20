@@ -47,6 +47,8 @@ function produce_html (){
 
     var current_body_source = $('body')[0].outerHTML;//get html source code of current page state
 
+    document.getElementById('print_busy').style.display = 'block';//show busy icon
+
 
     var url = http_https + current_domain + '/convert';
 
@@ -60,6 +62,10 @@ function produce_html (){
             if(data.sucess){//if success
                 
                 //return $('#x').append(data.download);
+                document.getElementById('print_busy').style.display = 'none';//hide busy icon
+
+                alert('Success : Document produced');//give success alert
+
                 return window.open(http_https + current_domain + '/'+ data.download, '_blank');//open pdf in new tab
             }
 
@@ -798,7 +804,7 @@ document.getElementById('menu_or_loading_options_option_menu').innerHTML = `
 
     <p style="width: 100%; height: auto;margin: 0px; text-align: center;">Preview page</p>
 
-    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-primary" onclick="page_menu_options(1)">
+    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-primary" onclick="page_menu_options(1)" disabled>
         Preview                        
     </button>
 
@@ -808,7 +814,7 @@ document.getElementById('menu_or_loading_options_option_menu').innerHTML = `
 
     <p style="width: 100%; height: auto;margin: 0px; text-align: center;">Print Page</p>
 
-    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-primary" onclick="page_menu_options(2)">
+    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-success" onclick="page_menu_options(2)">
         Print                  
     </button>
 
@@ -817,7 +823,7 @@ document.getElementById('menu_or_loading_options_option_menu').innerHTML = `
 
     <p style="width: 100%; height: auto;margin: 0px; text-align: center;">Save Page view</p>
 
-    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-primary" onclick="page_menu_options(3)">
+    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-primary" onclick="page_menu_options(3)" disabled>
         Save                     
     </button>
 
@@ -826,7 +832,7 @@ document.getElementById('menu_or_loading_options_option_menu').innerHTML = `
 
     <p style="width: 100%; height: auto;margin: 0px; text-align: center;">Restore Page view</p>
 
-    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-primary" onclick="page_menu_options(4)">
+    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-primary" onclick="page_menu_options(4)" disabled>
         Restore                     
     </button>
 
@@ -835,8 +841,18 @@ document.getElementById('menu_or_loading_options_option_menu').innerHTML = `
 
     <p style="width: 100%; height: auto;margin: 0px; text-align: center;">Choose template</p>
 
-    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-primary" onclick="page_menu_options(5)">
+    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-success" onclick="page_menu_options(5)">
         Template                     
+    </button>
+
+    </div>
+
+    <div style="width: 40%;height: auto;display: inline-block;margin: auto auto 5px auto;" class="w3-card">
+
+    <p style="width: 100%; height: auto;margin: 0px; text-align: center;">Help</p>
+
+    <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-success" onclick="var help = confirm('1) Click + to select component you want added.\\n2) Click on the added component text or icon.\\n3) Change component text or properties and press save button.\\n Do you want to contact CreativeXmindS to give suggestions?'); if(help){window.open('http://facebok.com/creativexminds','_blank')}">
+        Help                      
     </button>
 
     </div>

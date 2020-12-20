@@ -18,6 +18,9 @@
     </head>
     <body onload="options_menu()">
 
+        <!-- loading icon -->
+        <i id='print_busy' class="la la-cog la-spin la-3x la-fw " style='height: 150px;width:auto;position: fixed;top:40vh;left: 45vw;display: none;'></i>
+
         <section id='body_or_print_area'><!-- body/print area -->
 
             <!-- print button -->
@@ -403,7 +406,7 @@
                 
                 <!-- close button -->
                 <div style="width: 100%;height: 50px;" class="w3-block w3-margin;">
-                    <button onclick="show_hide('menu_or_loading_options_container')" class="btn btn-success" style="min-width:50px;width: 10%;height: auto; float:right; margin: 5px;"><i class='la la-close' style="width: auto;text-align: center;"></i></button>
+                    <button onclick="show_hide('menu_or_loading_options_container')" class="btn btn-danger" style="min-width:50px;width: 10%;height: auto; float:right; margin: 5px;"><i class='la la-close' style="width: auto;text-align: center;"></i></button>
                 </div>
 
                 <!-- options container div-->
