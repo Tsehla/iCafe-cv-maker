@@ -815,7 +815,8 @@ document.getElementById('menu_or_loading_options_option_menu').innerHTML = `
     <p style="width: 100%; height: auto;margin: 0px; text-align: center;">Print Page</p>
 
     <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-success" onclick="page_menu_options(2)">
-        Print                  
+        <i class='la la-print la-5x'></i>
+        <!-- <span>Print</span>  -->            
     </button>
 
     </div>
@@ -842,7 +843,8 @@ document.getElementById('menu_or_loading_options_option_menu').innerHTML = `
     <p style="width: 100%; height: auto;margin: 0px; text-align: center;">Choose template</p>
 
     <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-success" onclick="page_menu_options(5)">
-        Template                     
+    <i class="la la-book la-5x"></i>
+        <!-- <span>Template</span> -->                     
     </button>
 
     </div>
@@ -852,7 +854,8 @@ document.getElementById('menu_or_loading_options_option_menu').innerHTML = `
     <p style="width: 100%; height: auto;margin: 0px; text-align: center;">Help</p>
 
     <button style="width: 100%; height: 100px;margin: 16px auto 16px auto;" class="w3-border btn btn-success" onclick="var help = confirm('1) Click + to select component you want added.\\n2) Click on the added component text or icon.\\n3) Change component text or properties and press save button.\\n Do you want to contact CreativeXmindS to give suggestions?'); if(help){window.open('http://facebok.com/creativexminds','_blank')}">
-        Help                      
+    <i class="la la-question-circle la-5x"></i>
+    <!-- <span>Help</span> -->                    
     </button>
 
     </div>
