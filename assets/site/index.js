@@ -70,14 +70,14 @@ function produce_html (){
             }
 
             //if error
-
+            document.getElementById('print_busy').style.display = 'none';//hide busy icon
             return alert('There was an issue producing the CV/Resume, please try again later.'); 
            
 
         }
 
         //console.log('err', data);
-
+        document.getElementById('print_busy').style.display = 'none';//hide busy icon
         alert('There was an issue connecting to the server computer, please try again later.'); 
 
     });
